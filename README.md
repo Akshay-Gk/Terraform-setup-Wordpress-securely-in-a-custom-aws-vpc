@@ -6,8 +6,8 @@
 provider "aws" {
 
   region     = "ap-south-1"
-  access_key = "AKIAZ42BMGGGO5XKV6WE"
-  secret_key = "02qAtGdRsM4XYB1tAls3+U28iwcS6/Hwdiwe6kEc"
+  access_key = "Your_access_key"
+  secret_key = "Your_secrey_key"
 }
 ```
 
@@ -224,4 +224,58 @@ output "details_of_zone" {
 output "details_of_availability_zone" {
   value = data.aws_availability_zones.available.names
 }
+```
+
+# *Wordpress userdata*
+
+```
+#!/bin/bash
+
+
+yum install httpd php php-mysqlnd -y
+systemctl restart httpd php-fpm
+systemctl enable httpd php-fpm
+
+cd /tmp/
+wget  https://wordpress.org/latest.tar.gz
+tar -xvf latest.tar.gz
+mv wordpress/* /var/www/html/
+chown -R apache: apache /var/www/html/
+cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+
+
+sed -i "s/database_name_here/blogdb/" /var/www/html/wp-config.php
+
+sed -i "s/username_here/wpuser/" /var/www/html/wp-config.php
+
+sed -i "s/password_here/wpuser1234/" /var/www/html/wp-config.php
+
+sed -i "s/localhost/backend.learndevops.local/" /var/www/html/wp-config.php
+
+rm -rf wordpress
+```
+
+# *Mysql userdata*
+
+```
+#!/bin/bash
+
+
+yum install mariadb105-server -y
+systemctl restart mariadb.service
+systemctl enable mariadb.service
+
+mysql -u root -e "create database blogdb;"
+
+mysql -u root -e "create user wpuser@'%' identified by 'wpuser1234' ;"
+
+mysql -u root -e "grant all privileges on blogdb.* to wpuser@'%';"
+
+mysql -u root -e "flush privileges;"
+```
+
+# *Main*
+
+```
+
 ```
