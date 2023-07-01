@@ -1,6 +1,6 @@
 # Terraform-setup-Wordpress-securely-in-a-custom-aws-vpc
 
-# *Provider*
+# #*Provider*
 
 ```
 provider "aws" {
@@ -11,7 +11,7 @@ provider "aws" {
 }
 ```
 
-# *Data Resource*
+# #*Data Resource*
 
 ```
 data "aws_route53_zone" "selected" {
@@ -24,7 +24,7 @@ data "aws_availability_zones" "available" {
 }
 ```
 
-# *Variable*
+# #*Variable*
 
 ```
 variable "project_name" {
@@ -84,7 +84,7 @@ variable "enable_natgw" {
 }
 ```
 
-# *Output*
+# #*Output*
 
 ```
 output "frontend_public_ip" {
@@ -226,7 +226,7 @@ output "details_of_availability_zone" {
 }
 ```
 
-# *Wordpress userdata*
+# #*Wordpress userdata*
 
 ```
 #!/bin/bash
@@ -255,7 +255,7 @@ sed -i "s/localhost/backend.learndevops.local/" /var/www/html/wp-config.php
 rm -rf wordpress
 ```
 
-# *Mysql userdata*
+# #*Mysql userdata*
 
 ```
 #!/bin/bash
@@ -274,7 +274,7 @@ mysql -u root -e "grant all privileges on blogdb.* to wpuser@'%';"
 mysql -u root -e "flush privileges;"
 ```
 
-# *Main*
+# #*Main*
 
 ```
 #vpc creation
