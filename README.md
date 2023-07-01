@@ -1,5 +1,13 @@
 # Terraform-setup-Wordpress-securely-in-a-custom-aws-vpc
 
+# Description
+
+Database servers are the most important servers in any small or a big company because it contains all the data sets that can be of any user or employee of that company. The best practices of server security are therefore focused on protecting digital assets from cybercriminals. This approach is necessary because numerous hackers exploit existing vulnerabilities for financial gain. Here we set up a custom made secure setup for installing wordpress and protecting our server.
+
+=========================================================================================================================================
+
+* ***Provider Creation*** - A provider is a plugin that lets Terraform manage an external API
+
 # #*Provider*
 
 ```
@@ -11,6 +19,7 @@ provider "aws" {
 }
 ```
 
+***Data Resource Creation*** - Data sources allow Terraform to use information defined outside of Terraform
 # #*Data Resource*
 
 ```
