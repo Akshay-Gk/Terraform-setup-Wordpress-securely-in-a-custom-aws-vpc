@@ -2,7 +2,7 @@
 
 # Description
 
-Database servers are the most important servers in any small or a big company because it contains all the data sets that can be of any user or employee of that company. The best practices of server security are therefore focused on protecting digital assets from cybercriminals. This approach is necessary because numerous hackers exploit existing vulnerabilities for financial gain. Here we set up a custom made secure setup for installing wordpress and protecting our server.
+Database servers are the most important servers in any small or big company because it contains all the data sets that can be of any user or employee of that company. Therefore, the best practices of server security are focused on protecting digital assets from cybercriminals. This approach is necessary because numerous hackers exploit existing vulnerabilities for financial gain. Here we set up a custom-made secure setup for installing WordPress and protecting our server.
 
 =========================================================================================================================================
 
@@ -19,7 +19,7 @@ provider "aws" {
 }
 ```
 
-***Data Resource Creation*** - Data sources allow Terraform to use information defined outside of Terraform
+allow you to write configuration that is flexible and easier to re-use - Data sources allow Terraform to use information defined outside of Terraform
 # #*Data Resource*
 
 ```
@@ -32,7 +32,7 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 ```
-
+* ***Variable Creation*** - allows you to write a configuration that is flexible and easier to re-use
 # #*Variable*
 
 ```
@@ -92,7 +92,7 @@ variable "enable_natgw" {
   default = false #or false
 }
 ```
-
+* ***Output Creation***  - Terraform output values let you export structured data about your resources
 # #*Output*
 
 ```
