@@ -6,9 +6,10 @@ Database servers are the most important servers in any small or big company beca
 
 =========================================================================================================================================
 
-* ***Provider Creation*** - A provider is a plugin that lets Terraform manage an external API
+
 
 # #*Provider*
+* A provider is a plugin that lets Terraform manage an external API
 
 ```
 provider "aws" {
@@ -19,8 +20,8 @@ provider "aws" {
 }
 ```
 
-allow you to write configuration that is flexible and easier to re-use - Data sources allow Terraform to use information defined outside of Terraform
 # #*Data Resource*
+* Data Resource - allow you to write configuration that is flexible and easier to re-use - Data sources allow Terraform to use the information defined outside of Terraform
 
 ```
 data "aws_route53_zone" "selected" {
