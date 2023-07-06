@@ -90,7 +90,7 @@ variable "private_zone_name" {
 
 variable "enable_natgw" {
   type    = bool
-  default = false #or false
+  default = true #or false
 }
 ```
 * ***Output Creation***  - Terraform output values let you export structured data about your resources
@@ -320,7 +320,7 @@ resource "aws_subnet" "private" {
   count                   = 3
   vpc_id                  = aws_vpc.my-vpc.id
   cidr_block              = cidrsubnet(var.main_cidr_block, 3, (count.index))
-  availability_zone       = data.aws_availability_zones.available.names[0]
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = "false"
 
   tags = {
@@ -338,7 +338,7 @@ resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.my-vpc.id
   cidr_block              = cidrsubnet(var.main_cidr_block, 3, (count.index + 3))
   map_public_ip_on_launch = "true"
-  availability_zone       = data.aws_availability_zones.available.names[0]
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
   tags = {
     Name        = "${var.project_name}-${var.project_environment}-public${count.index + 4}"
     Environment = var.project_environment
@@ -575,7 +575,7 @@ resource "aws_instance" "bastion" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
   key_name               = aws_key_pair.wordpress.id
-  subnet_id              = aws_subnet.public[2].id
+  subnet_id              = aws_subnet.public[1].id
   vpc_security_group_ids = [aws_security_group.bastion.id]
 
 
@@ -598,7 +598,7 @@ resource "aws_instance" "backend" {
   ami                         = var.ami_id
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.wordpress.id
-  subnet_id                   = aws_subnet.private[2].id
+  subnet_id                   = aws_subnet.private[1].id
   vpc_security_group_ids      = [aws_security_group.backend.id]
   user_data                   = file("mysql_userdata.sh")
   user_data_replace_on_change = true
@@ -621,7 +621,7 @@ resource "aws_instance" "frontend" {
   ami                         = var.ami_id
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.wordpress.id
-  subnet_id                   = aws_subnet.public[1].id
+  subnet_id                   = aws_subnet.public[0].id
   vpc_security_group_ids      = [aws_security_group.frontend.id]
   user_data                   = file("wordpress_userdata.sh")
   user_data_replace_on_change = true
